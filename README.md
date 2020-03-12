@@ -16,8 +16,11 @@
 ### Como configurar o banco de dados?
 
  O projeto foi realizado usando o banco de dados relacional SQL Server. 
+ 
  Você precisa configurar a connection string dentro do arquivo 'appsettings.json'.
- Para gerar o banco de dados caso você esteja usando o Visual Studio execute: ``` Update-Database ```
+ 
+ Para gerar o banco de dados caso você esteja usando o Visual Studio execute: ``` Update-Database ``` dentro do projeto Repositories.
+ 
  Caso esteja usando o CLI do .net core: ``` dotnet ef database update ```
  
 ### Como executar?
