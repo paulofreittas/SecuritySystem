@@ -6,6 +6,7 @@ using Systems = SecuritySystem.Domain.Entities.System;
 
 namespace SecuritySystem.Domain.Validators
 {
+    // Usando o Fluent Validation para realizar as validações, aqui são definidas regras para algumas propriedades do modelo que sempre são validadas ao serem recebidas na requisição
     public class SystemValidator : AbstractValidator<Systems>
     {
         public SystemValidator()

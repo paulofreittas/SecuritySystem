@@ -16,7 +16,7 @@ namespace Application.Controllers
     public class SystemController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get([FromServices]ISystemRepository systemRepository, [FromQuery(Name = "page")] int page)
+        public IActionResult Get([FromServices]ISystemRepository systemRepository, [FromQuery(Name = "page")] int page = 1)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Application.Controllers
                                         [FromQuery(Name = "description")] string description, 
                                         [FromQuery(Name = "initials")] string initials, 
                                         [FromQuery(Name = "email")] string email,
-                                        [FromQuery(Name = "page")] int page)
+                                        [FromQuery(Name = "page")] int page = 1)
         {
             try
             {

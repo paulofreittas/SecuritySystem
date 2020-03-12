@@ -5,9 +5,11 @@ using System.Linq;
 using Systems = SecuritySystem.Domain.Entities.System;
 using System.Collections.Generic;
 using SecuritySystem.Domain.DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace SecuritySystem.Repositories.Repositories
 {
+    // Responsável por fazer as interações com o banco de dados.
     public class SystemRepository : ISystemRepository
     {
         private readonly SSContext _ctx;
@@ -26,16 +28,16 @@ namespace SecuritySystem.Repositories.Repositories
 
         public Systems GetById(int id)
         {
-            return _ctx.Systems.FirstOrDefault(c => c.Id == id);
+            return _ctx.Systems.AsNoTracking().FirstOrDefault(c => c.Id == id);
         }
 
         public SystemDTO GetAll(int page)
         {
             return new SystemDTO()
             {
-                TotalResults = _ctx.Systems.Count(),
+                TotalResults = _ctx.Systems.AsNoTracking().Count(),
                 Page = page,
-                Result = _ctx.Systems.Skip(50 * page).Take(50),
+                Result = _ctx.Systems.AsNoTracking().Skip(2 * (page - 1)).Take(2),
             };
         }
 
@@ -43,21 +45,21 @@ namespace SecuritySystem.Repositories.Repositories
         {
             int numeroItens = 0;
 
-            numeroItens = (from c in _ctx.Systems
-                          where c.Description.Contains(description ?? "") &&
-                                c.Initials.Contains(initials ?? "") &&
-                                c.Email.Contains(email ?? "")
+            numeroItens = (from c in _ctx.Systems.AsNoTracking()
+                           where c.Description.Contains(description ?? "") &&
+                                 c.Initials.Contains(initials ?? "") &&
+                                 c.Email.Contains(email ?? "")
                           select c).Count();
 
             return new SystemDTO()
             {
                 TotalResults = numeroItens,
                 Page = page,
-                Result = (from c in _ctx.Systems
-                         where c.Description.Contains(description ?? "") &&
-                               c.Initials.Contains(initials ?? "") &&
-                               c.Email.Contains(email ?? "")
-                         select c).Skip(50 * page).Take(50)
+                Result = (from c in _ctx.Systems.AsNoTracking()
+                          where c.Description.Contains(description ?? "") &&
+                                c.Initials.Contains(initials ?? "") &&
+                                c.Email.Contains(email ?? "")
+                         select c).Skip(2 * (page - 1)).Take(2)
             };
         }
 

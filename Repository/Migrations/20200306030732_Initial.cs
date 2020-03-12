@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SecuritySystem.Repositories.Migrations
 {
+    // As migrations são usadas para controlar as alterações do banco de dados, como foi usado a técnica de code first.
     public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

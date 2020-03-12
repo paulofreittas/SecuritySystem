@@ -32,13 +32,18 @@ namespace Application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Injeta o contexto para ser usado em qualquer ponto da aplicação, passando a connection string
             services.AddDbContext<SSContext>(options => options.UseSqlServer(Configuration.GetConnectionString("local")));
 
+            // Injeta o repositório e o Validator
             services.AddTransient<ISystemRepository, SystemRepository>();
             services.AddTransient<IValidator<Systems>, SystemValidator>();
 
+            // Faz a liberação do CORS para que não tenha problema no navegador
             services.AddCors(Options => Options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
+            // Configuração para não retornar os atributos nulos no json, assim econimizando em tráfego.
+            // Logo em seguida configura o retorno de BadRequest com o erro validado pelo Fluent Validador quando receber informações inconsistentes do modelo
             services.AddControllers().AddFluentValidation().AddJsonOptions(options => {
                 options.JsonSerializerOptions.IgnoreNullValues = true;
             }).ConfigureApiBehaviorOptions(options => {

@@ -14,6 +14,7 @@ namespace SecuritySystem.Tests
             validator = new SystemValidator();
         }
 
+        // Teste para garantir a regra de negócio de validação de email, específicada no caso de uso.
         [Fact]
         public void System_validEmail_ShouldValidateEmail()
         {

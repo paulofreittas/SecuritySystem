@@ -5,6 +5,7 @@ namespace SecuritySystem.Repositories.Context
 {
     public class SSContext : DbContext
     {
+        // Injeta as informações do banco para a DbContext
         public SSContext(DbContextOptions<SSContext> options) : base (options) 
         {
 
@@ -12,6 +13,7 @@ namespace SecuritySystem.Repositories.Context
 
         public DbSet<Systems> Systems { get; set; }
 
+        // Realiza as especificações da tabela System no banco de dados
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Systems>().ToTable("system").HasKey(c => c.Id);
