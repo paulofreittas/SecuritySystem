@@ -37,7 +37,7 @@ namespace SecuritySystem.Repositories.Repositories
             {
                 TotalResults = _ctx.Systems.AsNoTracking().Count(),
                 Page = page,
-                Result = _ctx.Systems.AsNoTracking().Skip(2 * (page - 1)).Take(2),
+                Result = _ctx.Systems.AsNoTracking().Skip(50 * (page - 1)).Take(50),
             };
         }
 
@@ -59,7 +59,7 @@ namespace SecuritySystem.Repositories.Repositories
                           where c.Description.Contains(description ?? "") &&
                                 c.Initials.Contains(initials ?? "") &&
                                 c.Email.Contains(email ?? "")
-                         select c).Skip(2 * (page - 1)).Take(2)
+                         select c).Skip(50 * (page - 1)).Take(50)
             };
         }
 
