@@ -6,6 +6,7 @@
 * .NET Core Web Api
 * Entity Framework (ORM)
 * Fluent Validation (Validação de dados)
+* Swagger (Documentação)
 * SQL Server (Banco de dados)
 
 ### O que é necessário para executar?
