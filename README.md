@@ -21,9 +21,9 @@
  
  Para gerar o banco de dados caso você esteja usando o Visual Studio execute: ``` Update-Database ``` dentro do projeto Repositories.
  
- Caso esteja usando o CLI do .net core: ``` dotnet ef database update ```
+ Caso esteja usando o CLI do .net core, vá na pasta raiz do projeto e execute: ```cd SecuritySystem.WebApi && dotnet ef database update ```
  
 ### Como executar?
 
- Caso esteja o CLI do .net core, execute ``` dotnet run ``` na raiz do projeto.
+ Caso esteja o CLI do .net core, execute ``` dotnet run ``` na pasta SecuritySystem.WebApi do projeto.
 

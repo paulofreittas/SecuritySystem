@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SecuritySystem.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:Application.Controllers.SystemController.Get(SecuritySystem.Repositories.Interfaces.ISystemRepository,System.Int32)">
+            <summary>
+            Retorna uma lista de sistemas.
+            </summary>
+            <param name="page"></param>
+            <returns>Retorna uma lista de sistemas.</returns>
+            <response code="200">Retorna um objeto json contendo o número resultados, a página solicitada e a lista de sistemas.</response>
+            <response code="500">Se houver algum problema interno.</response>          
+        </member>
+        <member name="M:Application.Controllers.SystemController.GetById(SecuritySystem.Repositories.Interfaces.ISystemRepository,System.Int32)">
+            <summary>
+            Retorna um sistema.
+            </summary>
+            <param name="id">Id do sistema</param>
+            <returns>Retorna um sistema cujo id corresponde ao que foi informado.</returns>
+            <response code="200">Retorna um sistema.</response>
+            <response code="400">Caso o sistema não seja encontrado.</response>          
+            <response code="500">Se houver algum problema interno.</response>     
+        </member>
+        <member name="M:Application.Controllers.SystemController.Get(SecuritySystem.Repositories.Interfaces.ISystemRepository,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Retorna uma lista de sistemas.
+            </summary>
+            <param name="description"></param>
+            <param name="initials"></param>
+            <param name="email"></param>
+            <param name="page"></param>
+            <returns>Retorna uma lista de sistemas.</returns>
+            <response code="200">Retorna um objeto json contendo o número resultados, a página solicitada e a lista de sistemas.</response>
+            <response code="500">Se houver algum problema interno.</response>          
+        </member>
+        <member name="M:Application.Controllers.SystemController.Create(SecuritySystem.Repositories.Interfaces.ISystemRepository,SecuritySystem.Domain.Entities.System)">
+            <summary>
+            Cadastra um novo sistema.
+            </summary>
+            <remarks>
+            Exemplo de request:
+            
+                POST v1/system
+                {        
+                  "description": "Sim Multi",
+                  "initials": "SIM",
+                  "status": 0, 
+                }
+            </remarks>
+            <param name="system"></param>
+            <returns>Retorna uma mensagem informando o resultado.</returns>
+            <response code="201">Retorna uma mensagem informando que a operação foi realizada com sucesso.</response>
+            <response code="500">Se houver algum problema interno.</response>          
+        </member>
+        <member name="M:Application.Controllers.SystemController.Update(SecuritySystem.Repositories.Interfaces.ISystemRepository,SecuritySystem.Domain.Entities.System)">
+            <summary>
+            Altera um sistema cadastrado.
+            </summary>
+            <remarks>
+            Exemplo de request:
+            
+                POST v1/system
+                { 
+                  "id": 1,
+                  "description": "Sim Multi Alterado",
+                  "initials": "SIM",
+                  "email": "contato@infopharma.com.br",
+                  "status": 0, 
+                }
+            </remarks>
+            <param name="system"></param>
+            <returns>Retorna uma mensagem informando o resultado.</returns>
+            <response code="200">Retorna uma mensagem informando que a operação foi realizada com sucesso.</response>
+            <response code="400">Se o parametro informado for inválido</response>     
+            <response code="500">Se houver algum problema interno.</response>   
+        </member>
+    </members>
+</doc>
