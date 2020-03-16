@@ -27,3 +27,7 @@
 
  Caso esteja o CLI do .net core, execute ``` dotnet run ``` na pasta SecuritySystem.WebApi do projeto.
 
+ ### Como ver a documentação gerada com o Swagger?
+
+ Execute a aplicação com o comando acima e acesse ``` localhost:<PORT>/swagger ```.
+

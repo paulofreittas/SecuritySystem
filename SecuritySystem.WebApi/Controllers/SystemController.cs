@@ -183,8 +183,6 @@ namespace Application.Controllers
             {
                 return StatusCode(500);
             }
-
-           
         }
     }
 }
