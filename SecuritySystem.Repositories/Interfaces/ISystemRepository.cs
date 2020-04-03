@@ -2,16 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Systems = SecuritySystem.Domain.Entities.System;
 
 namespace SecuritySystem.Repositories.Interfaces
 {
     public interface ISystemRepository
     {
-        void Create(Systems system);
-        void Update(Systems system);
-        SystemDTO GetAll(int page);
-        SystemDTO GetAllWithFilter(string description, string initials, string email, int page);
-        Systems GetById(int id);
+        Task CreateAsync(Systems system);
+        Task UpdateAsync(Systems system);
+        Task<SystemDTO> GetAllAsync(int page);
+        Task<SystemDTO> GetAllWithFilterAsync(string description, string initials, string email, int page);
+        Task<Systems> GetByIdAsync(int id);
     }
 }

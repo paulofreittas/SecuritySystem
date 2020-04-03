@@ -25,16 +25,15 @@ namespace Application.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
         [HttpGet]
-        public IActionResult Get([FromServices]ISystemRepository systemRepository, [FromQuery(Name = "page")] int page = 1)
+        public async Task<IActionResult> Get([FromServices]ISystemRepository systemRepository, [FromQuery(Name = "page")] int page = 1)
         {
             try
             {
-                return StatusCode(200, systemRepository.GetAll(page));
+                return StatusCode(200, systemRepository.GetAllAsync(page).GetAwaiter().GetResult());
             } catch
             {
                 return StatusCode(500);
             }
-            
         }
 
         /// <summary>
@@ -48,11 +47,11 @@ namespace Application.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [HttpGet("{id}")]
-        public IActionResult GetById([FromServices]ISystemRepository systemRepository, int id)
+        public async Task<IActionResult> GetById([FromServices]ISystemRepository systemRepository, int id)
         {
             try
             {
-                var sys = systemRepository.GetById(id);
+                var sys = await systemRepository.GetByIdAsync(id);
 
                 if (sys != null)
                 {
@@ -83,7 +82,7 @@ namespace Application.Controllers
         [ProducesResponseType(500)]
         [Route("filter")]
         [HttpGet]
-        public IActionResult Get([FromServices]ISystemRepository systemRepository, 
+        public async Task<IActionResult> Get([FromServices]ISystemRepository systemRepository, 
                                         [FromQuery(Name = "description")] string description, 
                                         [FromQuery(Name = "initials")] string initials, 
                                         [FromQuery(Name = "email")] string email,
@@ -91,7 +90,7 @@ namespace Application.Controllers
         {
             try
             {
-                var result = systemRepository.GetAllWithFilter(description, initials, email, page);
+                var result = await systemRepository.GetAllWithFilterAsync(description, initials, email, page);
 
                 if (result.TotalResults > 0)
                     return StatusCode(200, result);
@@ -103,9 +102,7 @@ namespace Application.Controllers
             catch 
             {
                 return StatusCode(500);
-            }
-
-            
+            } 
         }
 
         /// <summary>
@@ -128,11 +125,11 @@ namespace Application.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
         [HttpPost]
-        public IActionResult Create([FromServices]ISystemRepository systemRepository, Systems system)
+        public async Task<IActionResult> Create([FromServices]ISystemRepository systemRepository, Systems system)
         {
             try
             {
-                systemRepository.Create(system);
+                await systemRepository.CreateAsync(system);
 
                 return StatusCode(201, new { successMessage = Messages.SuccessOperation });
             }
@@ -166,9 +163,8 @@ namespace Application.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         [HttpPut]
-        public IActionResult Update([FromServices]ISystemRepository systemRepository, Systems system)
+        public async Task<IActionResult> Update([FromServices]ISystemRepository systemRepository, Systems system)
         {
-
             try
             {
                 if (system.Id == 0)
@@ -176,7 +172,7 @@ namespace Application.Controllers
                     return BadRequest();
                 }
 
-                systemRepository.Update(system);
+                await systemRepository.UpdateAsync(system);
 
                 return StatusCode(200, new { successMessage = Messages.SuccessOperation });
             }

@@ -6,6 +6,7 @@ using Systems = SecuritySystem.Domain.Entities.System;
 using System.Collections.Generic;
 using SecuritySystem.Domain.DTO;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace SecuritySystem.Repositories.Repositories
 {
@@ -19,58 +20,59 @@ namespace SecuritySystem.Repositories.Repositories
             _ctx = ctx;
         }
 
-        public void Create(Systems system)
+        public async Task CreateAsync(Systems system)
         {
             system.Initials = system.Initials.ToUpper();
             _ctx.Systems.Add(system);
-            _ctx.SaveChanges();
+            await _ctx.SaveChangesAsync();
         }
 
-        public Systems GetById(int id)
+        public async Task<Systems> GetByIdAsync(int id)
         {
-            return _ctx.Systems.AsNoTracking().FirstOrDefault(c => c.Id == id);
+            return await _ctx.Systems.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public SystemDTO GetAll(int page)
+        public async Task<SystemDTO> GetAllAsync(int page)
         {
             return new SystemDTO()
             {
-                TotalResults = _ctx.Systems.AsNoTracking().Count(),
+                TotalResults = await _ctx.Systems.AsNoTracking().CountAsync(),
                 Page = page,
-                Result = _ctx.Systems.AsNoTracking().Skip(50 * (page - 1)).Take(50),
+                Result = await _ctx.Systems.AsNoTracking().Skip(50 * (page - 1)).Take(50).ToListAsync(),
             };
         }
 
-        public SystemDTO GetAllWithFilter(string description, string initials, string email, int page)
+        public async Task<SystemDTO> GetAllWithFilterAsync(string description, string initials, string email, int page)
         {
             int numeroItens = 0;
 
-            numeroItens = (from c in _ctx.Systems.AsNoTracking()
+            numeroItens = await (from c in _ctx.Systems.AsNoTracking()
                            where c.Description.Contains(description ?? "") &&
                                  c.Initials.Contains(initials ?? "") &&
                                  c.Email.Contains(email ?? "")
-                          select c).Count();
+                          select c).CountAsync();
 
             return new SystemDTO()
             {
                 TotalResults = numeroItens,
                 Page = page,
-                Result = (from c in _ctx.Systems.AsNoTracking()
+                Result = await (from c in _ctx.Systems.AsNoTracking()
                           where c.Description.Contains(description ?? "") &&
                                 c.Initials.Contains(initials ?? "") &&
                                 c.Email.Contains(email ?? "")
-                         select c).Skip(50 * (page - 1)).Take(50)
+                          select c).Skip(50 * (page - 1)).Take(50).ToListAsync()
             };
         }
 
-        public void Update(Systems system)
+        public async Task UpdateAsync(Systems system)
         {
             system.Initials = system.Initials.ToUpper();
             system.JustificationForTheLastUpdate = system.NewJustification;
             system.NewJustification = null;
 
+            //_ctx.Entry<Systems>(system).State = EntityState.Modified;
             _ctx.Systems.Update(system);
-            _ctx.SaveChanges();
+            await _ctx.SaveChangesAsync();
         }
     }
 }
