@@ -164,6 +164,7 @@ namespace Application.Controllers
         /// <response code="500">Se houver algum problema interno.</response>   
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         [HttpPut]
         public IActionResult Update([FromServices]ISystemRepository systemRepository, Systems system)
         {
