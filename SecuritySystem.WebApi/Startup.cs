@@ -36,7 +36,10 @@ namespace Application
         public void ConfigureServices(IServiceCollection services)
         {
             // Injeta o contexto para ser usado em qualquer ponto da aplicação, passando a connection string
-            services.AddDbContext<SSContext>(options => options.UseSqlServer(Configuration.GetConnectionString("local")));
+            // SQLServer
+            // services.AddDbContext<SSContext>(options => options.UseSqlServer(Configuration.GetConnectionString("local")));
+            // MySQL
+            services.AddDbContext<SSContext>(options => options.UseMySql(Configuration.GetConnectionString("local")));
 
             // Injeta o repositório e o Validator
             services.AddTransient<ISystemRepository, SystemRepository>();

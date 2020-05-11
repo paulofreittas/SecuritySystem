@@ -24,7 +24,7 @@ namespace SecuritySystem.Repositories.Context
             modelBuilder.Entity<Systems>().Property(c => c.Url).HasColumnName("url").HasMaxLength(50);
             modelBuilder.Entity<Systems>().Property(c => c.Status).HasColumnName("status").IsRequired();
             modelBuilder.Entity<Systems>().Property(c => c.UserResponsibleForLastUpdate).HasColumnName("user_responsible_for_last_update").HasMaxLength(100);
-            modelBuilder.Entity<Systems>().Property(c => c.UpdateAt).HasColumnName("update_at").IsRequired();
+            modelBuilder.Entity<Systems>().Property(c => c.UpdateAt).HasColumnName("update_at").HasColumnType("datetime").IsRequired();
             modelBuilder.Entity<Systems>().Property(c => c.JustificationForTheLastUpdate).HasColumnName("justification_for_the_last_update").HasMaxLength(500);
             modelBuilder.Entity<Systems>().Property(c => c.NewJustification).HasColumnName("new_justification").HasMaxLength(500);
 

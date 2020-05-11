@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20200306024752_Initial.Designer.cs" />
     <Compile Remove="Migrations\20200306025927_Initial.cs" />
     <Compile Remove="Migrations\20200306025927_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200306030732_Initial.cs" />
+    <Compile Remove="Migrations\20200306030732_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +24,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="MySqlConnector" Version="0.66.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
